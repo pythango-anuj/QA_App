@@ -1,0 +1,96 @@
+.body-box {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 2vh;
+}
+
+.body-content {
+    background-color: cadetblue;
+    padding: 1vh;
+    width: fit-content;
+    position: fixed;
+    align-content: center;
+}
+
+.body-user {
+    padding: 1vh;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    align-content: center;
+}
+
+.user-feed {
+    float: left;
+    width: 49%;
+    height: 78%;
+    padding: 2px;
+    display: flex;
+    flex-direction: column;
+}
+
+.others-questions{
+    background-color: rgb(138, 190, 190);
+    float: right;
+    width: 49%;
+    height: 80%;
+    padding: 2px;
+}
+
+.my-questions {
+    background-color: rgb(138, 190, 190);;
+    width: 100%;
+    height: 70%;
+    padding: 2px;
+    
+}
+
+.scroll-box-others {
+    overflow-y: scroll;
+    height:85%;
+}
+
+.scroll-box-my {
+    overflow-y: scroll;
+    height:80%;
+}
+
+.box-title {
+    padding: 1vh;
+    display: flex;
+    justify-content: center;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.q-box {
+    width: 100%;
+    background-color: aliceblue;
+    padding: 2px;
+    padding-right: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.q-user {
+    width: 100%;
+}
+
+.q-user-name {
+    float: left;
+    padding: 1vh;
+}
+
+.q-user-time {
+    float: right;
+}
+
+.q-answers {
+    padding: 1px;
+    display: flex;
+    justify-content: center;
+}

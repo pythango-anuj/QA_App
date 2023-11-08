@@ -1,0 +1,80 @@
+.body-box {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 2vh;
+}
+
+.q-content {
+    width: 60%;
+    height: 82%;
+    background-color: cadetblue;
+    overflow-y: scroll;
+}
+
+.q-box {
+    width: 100%;
+    background-color: bisque;
+    padding: 2vh;
+}
+
+.add-answer-box {
+    padding: 2vh;
+    background-color: blanchedalmond;
+}
+
+.answers {
+    background-color: rgb(138, 190, 190);;
+    width: 100%;
+    height: 40%;
+    padding: 2px;   
+}
+
+.scroll-box {
+    height:100%;
+}
+
+.ans-box {
+    width: 100%;
+    background-color: blanchedalmond;
+    padding: 2px;
+    padding-right: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.ans-detail {
+    width: 100%;
+}
+
+.ans-likes {
+    float: left;
+    padding: 1vh;
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+}
+
+.ans-time {
+    float: right;
+}
+
+.ans-user-name {
+    float: left;
+    padding: 1vh;
+}
+
+.fa {  
+    font-size: 30px;  
+    cursor: pointer;  
+    user-select: none;  
+}
+
+.fa:hover {  
+    color: rgb(96, 102, 104);  
+}
+
+.liked-button {
+    color: green; /* Color when the button is liked */
+}

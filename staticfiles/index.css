@@ -1,0 +1,28 @@
+.body-box {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 5vh;
+}
+
+.body-content {
+    background-color: cadetblue;
+    padding: 2vh;
+    width: fit-content;
+    position: fixed;
+    align-content: center;
+}
+
+.body-content-user {
+    background-color: cadetblue;
+    padding: 2vh;
+    width: fit-content;
+    position: fixed;
+    align-content: center;
+}
+
+.list-questions {
+    background-color: cadetblue;
+    float: left;
+}

@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block auth %}
+{% if request.user.is_authenticated %}
+    <h3> Hello, {{ request.user.username }} </h3>
+    &nbsp;
+    <a href="{% url 'logout' %}"><button type="button" class="btn btn-outline-dark">Logout</button></a>
+    {% else %}
+    <a href="{% url 'signin' %}"><button type="button" class="btn btn-outline-dark">Sign In</button></a>
+    <h3>|</h3>
+    <a href="{% url 'signup' %}"><button type="button" class="btn btn-outline-dark">Sign Up</button></a>
+{% endif %}
+{% endblock %}
+
+{% block body %}
+<div class="body-box">
+    {% if request.user.is_authenticated %}
+    <div class="body-user">
+        <div class = "user-feed">
+            <div class="post-box">
+                <form method="POST" action="{% url 'home' %}">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <textarea class="form-control" name="question" rows="3" placeholder="Add your question here........" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-outline-dark">Ask a Question</button>
+                    </div>
+                </form>
+            </div>
+            <hr>
+            <div class="my-questions">
+                <div class="box-title">
+                    <h2>Your Asks</h2>
+                </div>
+                <div class="scroll-box-my">
+                    <ul>
+                        {% for q in my_questions %}
+                        <li>
+                            <div class="q-box">
+                                <br>
+                                <h6>&nbsp;&nbsp;{{q.question}}</h6>
+                                <hr>
+                                <div class="q-user">
+                                    <div class="q-user-time"><p>{{q.created_at}}</p></div>
+                                    <a href="{% url 'answers' q.id %}"><p class="q-user-name">See Answers</p></a>
+                                </div>
+                            </div>
+                        </li>
+                        &nbsp;
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="others-questions">
+            <div class="box-title">
+                <h2>Asked by other Users</h2>
+            </div>
+            <div class="scroll-box-others">
+                <ul>
+                    {% for q in questions %}
+                    <li>
+                        <div class="q-box">
+                            <div class="q-user">
+                                <div class="q-user-name"><p><b>{{q.user.username}}</b></p></div>
+                                <div class="q-user-time"><p>{{q.created_at}}</p></div>
+                            </div>
+                            <hr>
+                            <h6>&nbsp;&nbsp;{{q.question}}</h6>
+                            <hr>
+                            <div class="q-answers">
+                                <a href="{% url 'answers' id=q.id %}"><p class="q-user-name">See Answers</p></a>
+                            </div>
+                        </div>
+                    </li>
+                    &nbsp;
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="body-content">
+        <h2>Welcome to QA App!</h4>
+        <h4>Sign in from top right corner to see main content</h4>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

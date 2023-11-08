@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block auth %}
+{% if request.user.is_authenticated %}
+    <h3> Hello, {{ request.user.username }} </h3>
+    &nbsp;
+    <a href="{% url 'logout' %}"><button type="button" class="btn btn-outline-dark">Logout</button></a>
+    {% else %}
+    <a href="{% url 'signin' %}"><button type="button" class="btn btn-outline-dark">Sign In</button></a>
+    <h3>|</h3>
+    <a href="{% url 'signup' %}"><button type="button" class="btn btn-outline-dark">Sign Up</button></a>
+{% endif %}
+{% endblock %}
+
+{% block body %}
+<div class="body-box">
+    <div class="q-content">
+        <div class="q-box"><h5>Q: {{ question.question }}</h5></div>
+        <hr>
+        <div class="add-answer-box">
+            <form method="POST" action="{% url 'answers' id=question.id %}">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <textarea class="form-control" name="answer" rows="3" placeholder="Write your answer here........" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-outline-dark">Add an Answer</button>
+                </div>
+            </form>
+        </div>
+        <hr>
+        <div class="answers">
+            <div class="box-title">
+                <h2>Answers</h2>
+            </div>
+
+            <div class="scroll-box">
+                <ul>
+                    {% for ans in answers %}
+                    <li>
+                        <div class="ans-box">
+                            <div class="ans-user-name"><p><b>{{ans.user.username}}</b></p></div>
+                            <hr>
+                            <h6>&nbsp;&nbsp;{{ans.answer}}</h6>
+                            <hr>
+                            <div class="ans-detail">
+                                <div class="ans-likes">
+                                    <i id='like' class="fa fa-thumbs-up like" ans-id="{{ans.id}}" like-status="false"></i>
+                                    <p>&nbsp;&nbsp;{{ans.likes}} Likes</p>
+                                </div>
+                                <div class="ans-time"><p>{{ans.created_at}}</p></div>
+                            </div>
+                        </div>
+                    </li>
+                    &nbsp;
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    const likeButtons = document.querySelectorAll('.like');
+
+    const csrfToken = document.querySelector('input[name=csrfmiddlewaretoken]').value;
+    likeButtons.forEach(likeButton => {
+        likeButton.addEventListener('click', () => {
+            const ansId = likeButton.getAttribute('ans-id');
+            const likeStatus = likeButton.getAttribute('like-status');
+
+            // Toggle the like status
+            const newLikeStatus = likeStatus === 'true' ? 'false' : 'true';
+            likeButton.setAttribute('like-status', newLikeStatus);
+
+            // Send an AJAX request to the Django view to toggle the like status
+            fetch('{% url "like_view" 0 %}'.replace('0', ansId), {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrfToken,  // You need to set the CSRF token
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    id: ansId,
+                    like: newLikeStatus,
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Handle the response, e.g., update the button icon or style
+                if (data.success) {
+                    // You can update the button icon or style based on the like status
+                    if (newLikeStatus === 'true') {
+                        likeButton.classList.add('liked-button');
+                    } else {
+                        likeButton.classList.remove('liked-button');
+                    }
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}
